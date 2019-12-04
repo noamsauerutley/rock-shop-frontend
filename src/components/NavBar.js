@@ -1,25 +1,43 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { Navbar, Nav, Form, FormControl, Button, NavItem } from 'react-bootstrap';
+import { Menu } from 'semantic-ui-react'
 
 export class NavBar extends Component {
+
+  state = {}
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
   render() {
+    const { activeItem } = this.state
     return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand as={Link} to="/">We Sell Rocks</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link as={Link} to="/rocks">Browse Rocks</Nav.Link>
-          </Nav>
-          <Nav>
-            <Nav.Link as={Link} to="/login">Log In</Nav.Link>
-            <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      // <div>
+      //   <h2 as={Link} to="/">We Sell Rocks</h2>
+      //   <Link to="/rocks">Browse Rocks</Link>
+      //   <Link to="/login">Log In</Link>
+      //   <Link to="/cart">Cart</Link>
+      // </div>
+      <Menu>
+        <Menu.Item as={Link} to="/" header>We Sell Rocks</Menu.Item>
+        <Menu.Item as={Link} to="/rocks"
+          name='browse'
+          active={activeItem === 'browse'}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Item as={Link} to="/login"
+          name='logIn'
+          active={activeItem === 'logIn'}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Item as={Link} to="/cart"
+          name='cart'
+          active={activeItem === 'cart'}
+          onClick={this.handleItemClick}
+        />
+      </Menu>
     )
   }
 }
 
 export default NavBar;
+

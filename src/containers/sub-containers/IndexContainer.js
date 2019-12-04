@@ -1,6 +1,5 @@
 import React from 'react';
 import RockCard from '../../components/RockCard'
-import { Card, CardDeck } from 'react-bootstrap'
 
 class IndexContainer extends React.Component {
     
@@ -9,9 +8,12 @@ class IndexContainer extends React.Component {
         const displayRocks = this.props.allRocks.map(rock => <RockCard key={rock.id} rock={rock} />)
 
         return (
-            <CardDeck>
-                {displayRocks}
-            </CardDeck>
+            <div className="ui four column grid">
+                <div className="row">
+                    {displayRocks}
+                </div>
+            </div>
+
         )
     }
 }

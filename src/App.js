@@ -34,7 +34,7 @@ class App extends React.Component {
       <div className="App">
         <HeaderContainer />
         <SideContainer filterRocks={this.filterRocksByCategory}/>
-        <MainContainer allRocks={this.state.displayRocks} currentCart={this.state.cart}/>
+        <MainContainer allRocks={this.state.displayRocks} currentCart={this.state.cart}/> 
       </div>
     )
   }
