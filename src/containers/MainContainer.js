@@ -12,7 +12,7 @@ export class MainContainer extends Component {
 
     render() {
         return (
-            <div>
+            <div className="ten wide column">
                 <Switch>
                     <Route exact path="/rocks" >
                         {/* {this.indexContainerWithProps} */}

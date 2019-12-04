@@ -4,7 +4,7 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 
 const RockCard = (props) => {
 
-    const { rock } = props;
+    const { rock } = props
 
     return (
         <div className="ui column">
@@ -14,13 +14,13 @@ const RockCard = (props) => {
                     <Card.Header>{rock.name}</Card.Header>
                     <Card.Meta><span className='date'>{rock.category}</span></Card.Meta>
                     <Card.Description>{rock.description}</Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <a>
-                            <Icon name='dollar sign' />
-                            {rock.price}
-                        </a>
-                    </Card.Content>
+                </Card.Content>
+                <Card.Content extra>
+                    <a>
+                        <Icon name='dollar sign' />
+                        {rock.price}
+                    </a>
+                </Card.Content>
             </Card>
         </div>
     )

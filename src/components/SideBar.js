@@ -1,36 +1,76 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Dropdown, Menu } from 'semantic-ui-react'
 
 export class SideBar extends Component {
 
-    state = {
-        value: ''
-    }
+    state = {}
     
-    handleChange = (event) => {
-        this.setState({value: event.target.value})
-        this.props.filterRocks(event.target.value)
+    handleChange = (event, {value}) => {
+        this.setState({value})
+        this.props.filterRocks({value})
     }
     
     render() {
+        const { value } = this.state;
+
+        const categoryOptions = [
+            {
+                key: 'All',
+                text: 'All',
+                value: 'All',
+            },
+            {
+                key: 'Metamorphic',
+                text: 'Metamorphic',
+                value: 'Metamorphic',
+            },
+            {
+                key: 'Sedimentary',
+                text: 'Sedimentary',
+                value: 'Sedimentary',
+            },
+            {
+                key: 'Special',
+                text: 'Special',
+                value: 'Special',
+            },
+            {
+                key: 'Danger',
+                text: 'Danger',
+                value: 'Danger',
+            },
+            {
+                key: 'Boring',
+                text: 'Boring',
+                value: 'Boring',
+            },
+            {
+                key: 'Fancy',
+                text: 'Fancy',
+                value: 'Fancy',
+            },
+            {
+                key: 'Igneous',
+                text: 'Igneous',
+                value: 'Igneous',
+            }
+        ]
+
         return (
-            <div>
-                <h4>Categories</h4>
-                <NavLink to="/rocks">
-                    <select value={this.state.value} onChange={this.handleChange}>
-                        <option value="All">All</option>
-                        <option value="Metamorphic">Metamorphic</option>
-                        <option value="Sedimentary">Sedimentary</option>
-                        <option value="Special">Special</option>
-                        <option value="Danger">Danger</option>
-                        <option value="Boring">Boring</option>
-                        <option value="Fancy">Fancy</option>
-                        <option value="Igneoous">Igneoous</option>
-                    </select>
-                </NavLink>
-            </div>
+            <Link to="/rocks">
+                <Dropdown
+                    placeholder='Select Category'
+                    value={value}
+                    fluid
+                    selection
+                    options={categoryOptions}
+                    onChange={this.handleChange}
+                />
+            </Link>
         )
     }
 }
 
 export default SideBar;
+

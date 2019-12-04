@@ -17,14 +17,15 @@ class App extends React.Component {
   //   })
   // }
 
-  filterRocksByCategory = (value) => {
-    if (value === 'All') {
+  filterRocksByCategory = (filter) => {
+    let input = (filter["value"])
+    if (input === 'All') {
       this.setState({
         displayRocks: this.state.rocks
       })
     } else {
       this.setState({
-        displayRocks: this.state.rocks.filter(rock => rock.category === value)
+        displayRocks: this.state.rocks.filter(rock => rock.category === input)
       })
     }
   }
@@ -33,8 +34,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <HeaderContainer />
-        <SideContainer filterRocks={this.filterRocksByCategory}/>
-        <MainContainer allRocks={this.state.displayRocks} currentCart={this.state.cart}/> 
+        <div className="ui grid">
+          <SideContainer filterRocks={this.filterRocksByCategory}/>
+          <MainContainer allRocks={this.state.displayRocks} currentCart={this.state.cart}/> 
+        </div>
       </div>
     )
   }
