@@ -40,6 +40,7 @@ class CartContainer extends React.Component {
     checkout = () => {
         let completedOrder
         let newOrder
+       
         fetch(`http://localhost:3000/orders/${localStorage.orderId}`, {
             method: "PATCH",
             headers: {
@@ -52,6 +53,9 @@ class CartContainer extends React.Component {
         })
         .then(r => r.json())
         .then(data => {
+            this.setState({
+                cart: []
+            })
             this.props.clearCart()
             completedOrder = data
             fetch("http://localhost:3000/orders", {
