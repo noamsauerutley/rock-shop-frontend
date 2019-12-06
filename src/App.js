@@ -116,11 +116,19 @@ class App extends React.Component {
     })
   }
 
+  resetCart = (newOrder) => {
+    this.setState({
+      cart: [],
+      total: 0,
+      orderId: newOrder.id
+    })
+  }
+
   render() {
     return (
       <React.Fragment >
         <HeaderContainer handleLogOut={this.logOutClick} token={this.state.token} cartNum={this.state.cart.length}/>
-        <MainContainer sortRocks={this.sortRocks} filterRocksByCategory={this.filterRocksByCategory} clearCart={this.clearCart} addToCart={this.addToCart} setToken={this.setToken} token={this.state.token} loggedInUserId={this.state.loggedInUserId} displayRocks={this.state.displayRocks} total={this.state.total} currentCart={this.state.cart}/>
+        <MainContainer resetCart={this.resetCart} sortRocks={this.sortRocks} filterRocksByCategory={this.filterRocksByCategory} clearCart={this.clearCart} addToCart={this.addToCart} setToken={this.setToken} token={this.state.token} loggedInUserId={this.state.loggedInUserId} displayRocks={this.state.displayRocks} total={this.state.total} currentCart={this.state.cart}/>
       </React.Fragment>
     )
   }

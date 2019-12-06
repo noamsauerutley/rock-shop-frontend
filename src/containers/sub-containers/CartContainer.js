@@ -1,7 +1,6 @@
 import React from 'react';
 import LongCard from '../../components/LongCard'
-import { Redirect } from 'react-router-dom'
-
+import { Redirect, Link, NavLink } from 'react-router-dom'
 
 class CartContainer extends React.Component {
 
@@ -49,9 +48,10 @@ class CartContainer extends React.Component {
             .then(res => res.json())
             .then(orderObj => {
                 newOrder = orderObj
-                console.log(newOrder)
-                // newOrder gets sent to App.js to setState
-                console.log(completedOrder)
+                // console.log(newOrder)
+                this.props.resetCart(newOrder)
+                // console.log(completedOrder)
+                // this.completeOrder(completedOrder)
                 // completedOrder is used to render a 'Completed Order' component
             })
         })
