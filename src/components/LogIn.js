@@ -33,8 +33,9 @@ class LogIn extends React.Component {
             errors: data.errors
           })
         } else {
-          this.props.setToken(data)
+          // debugger
           console.log(data)
+          this.props.setToken(data)
         }
       })
   }

@@ -32,11 +32,11 @@ class App extends React.Component {
   //   }))
   // }
 
-  setToken = ({ token, user_id, order_id, purchases, total }) => {
-    console.log(token)
-    console.log(user_id)
-    console.log(order_id)
-    console.log(purchases)
+  setToken = ({ token, user_id, order_id, cart_rocks, total }) => {
+    // console.log(token)
+    // console.log(user_id)
+    // console.log(order_id)
+    console.log(cart_rocks)
 
     localStorage.token = token
     localStorage.userId = user_id
@@ -46,7 +46,7 @@ class App extends React.Component {
       token: token,
       loggedInUserId: user_id,
       orderId: order_id,
-      cart: !!purchases ? purchases.map(purchase => purchase) : [],
+      cart: !!cart_rocks ? cart_rocks : [],
       total: total
     })
   }
@@ -85,6 +85,7 @@ class App extends React.Component {
     //   cart: [...this.state.cart, rock],
     //   total: this.state.total + rock.price
     // })
+    // debugger
     localStorage.cart = this.state.cart.map(item => item.id )
     if (this.state.loggedInUserId) {
       fetch('http://localhost:3000/purchases', {
@@ -96,17 +97,30 @@ class App extends React.Component {
         body: JSON.stringify({
           rock_id: rock.id,
           order_id: this.state.orderId,
-          quantity: 1
+          quantity: 1,
+          cost: rock.price
         })
       })
       .then(r => r.json())
       .then(purchase => {
+        console.log(purchase)
         this.setState({
           cart: [...this.state.cart, purchase.rock],
           total: this.state.total + purchase.rock.price
         })
       })
     }
+  }
+
+  removeItemFromCart = (purchase) => {
+    this.setState({
+        cart: this.state.cart.filter(item => item.id !== purchase.rock.id),
+        total: this.state.total - purchase.cost
+    })
+    // debugger
+    fetch(`http://localhost:3000/purchases/${purchase.id}`, {
+        method: 'DELETE'
+    })
   }
 
   clearCart = () => {
@@ -128,7 +142,7 @@ class App extends React.Component {
     return (
       <React.Fragment >
         <HeaderContainer handleLogOut={this.logOutClick} token={this.state.token} cartNum={this.state.cart.length}/>
-        <MainContainer resetCart={this.resetCart} sortRocks={this.sortRocks} filterRocksByCategory={this.filterRocksByCategory} clearCart={this.clearCart} addToCart={this.addToCart} setToken={this.setToken} token={this.state.token} loggedInUserId={this.state.loggedInUserId} displayRocks={this.state.displayRocks} total={this.state.total} currentCart={this.state.cart}/>
+        <MainContainer removeItemFromCart={this.removeItemFromCart} resetCart={this.resetCart} sortRocks={this.sortRocks} filterRocksByCategory={this.filterRocksByCategory} clearCart={this.clearCart} addToCart={this.addToCart} setToken={this.setToken} token={this.state.token} loggedInUserId={this.state.loggedInUserId} displayRocks={this.state.displayRocks} total={this.state.total} currentCart={this.state.cart}/>
       </React.Fragment>
     )
   }

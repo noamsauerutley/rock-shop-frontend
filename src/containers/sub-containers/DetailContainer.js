@@ -17,7 +17,7 @@ class DetailContainer extends React.Component {
     render(){
 
         if (this.state.redirect) {
-            return <Redirect to={'/cart'} />
+            return <Redirect to={'/'} />
         }
 
         let rock = this.props.rock;

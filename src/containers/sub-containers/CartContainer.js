@@ -5,7 +5,26 @@ import { Redirect, Link, NavLink } from 'react-router-dom'
 class CartContainer extends React.Component {
 
     state = {
-        redirect: false
+        redirect: false,
+        cart: []
+    }
+
+    componentDidMount(){
+        fetch(`http://localhost:3000/orders/${localStorage.orderId}`)
+        .then(r => r.json())
+        .then(orderObj => {
+            // debugger
+            this.setState({
+                cart: orderObj.purchases
+            })
+        })
+    }
+
+    removeItem = (purchase) => {
+        this.props.removeItemFromCart(purchase)
+        this.setState({
+            cart: this.state.cart.filter(item => item.id !== purchase.id)
+        })
     }
 
     handleCheckout = () => {
@@ -97,10 +116,10 @@ class CartContainer extends React.Component {
     // }
 
     cartItems = () => {
-        if(this.props.currentCart.length < 1){
+        if(this.state.cart.length < 1){
             return "There are no items in your cart at this time."
         } else{
-            return this.props.currentCart.map(item => <LongCard key={item.id} cartItem={item} />)
+            return this.state.cart.map(item => <LongCard key={item.id} cartItem={item} removeItem={this.removeItem}/>)
         }  
     }
 
