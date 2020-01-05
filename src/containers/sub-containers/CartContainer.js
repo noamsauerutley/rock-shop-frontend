@@ -22,7 +22,7 @@ class CartContainer extends React.Component {
     checkout = () => {
         let completedOrder
         let newOrder
-        fetch(`http://localhost:3000/orders/${localStorage.orderId}`, {
+        fetch(`https://rock-shop-api.herokuapp.com/orders/${localStorage.orderId}`, {
             method: "PATCH",
             headers: {
                 "Authorization": this.props.token.toString(),
@@ -36,7 +36,7 @@ class CartContainer extends React.Component {
         .then(data => {
             this.props.clearCart()
             completedOrder = data
-            fetch("http://localhost:3000/orders", {
+            fetch("https://rock-shop-api.herokuapp.com/orders", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -60,7 +60,7 @@ class CartContainer extends React.Component {
     // CHECKOUT FUNCTION TO CLEAR CART AND PATCH ORDER WITH 'TRUE' CHECKOUT VALUE
     // --------------------------------------------------------------------------
     // checkout = async () => {
-    //     let rawCheckout = await fetch("http://localhost:3000/orders", {
+    //     let rawCheckout = await fetch("https://rock-shop-api.herokuapp.com/orders", {
     //         method: "POST",
     //         headers: {
     //             "Authorization": this.props.token.toString(),
@@ -80,7 +80,7 @@ class CartContainer extends React.Component {
     // PREVIOUS 'CREATE PURCHASES' FUNCTION AFTER 'ORDER' IS CREATED
     // -------------------------------------------------------------
     // addPurchasesToCheckout = async (order_id, item_id) => {
-    //     let rawPurchase = await fetch('http://localhost:3000/purchases', {
+    //     let rawPurchase = await fetch('https://rock-shop-api.herokuapp.com/purchases', {
     //         method: "POST",
     //         headers: {
     //             "Authorization": this.props.token.toString(),
